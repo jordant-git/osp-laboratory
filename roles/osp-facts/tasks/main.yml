@@ -10,6 +10,10 @@
   add_host:
     name: "{{ item.public_v4 }}"
     group: "{{ item.metadata.group }}"
+<<<<<<< HEAD
+=======
+    ansible_host: "{{ item.public_v4 }}"
+>>>>>>> 3232154ddb55a61327421f528fc8abb6aaac3492
   with_items: "{{result.ansible_facts.openstack_servers}}"
 
 - name: Add host

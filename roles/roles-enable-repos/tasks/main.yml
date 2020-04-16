@@ -1,5 +1,16 @@
 ---
 # tasks file for roles-enable-repos
+<<<<<<< HEAD
+=======
+
+- name: enable sudo without tty 
+  replace:
+     path: /etc/sudoers
+     regexp: '^Defaults\s*requiretty'
+     replace: 'Defaults  !requiretty'
+     backup: yes
+
+>>>>>>> 3232154ddb55a61327421f528fc8abb6aaac3492
 - name: enable repos
   template:
      src: open_three-tier-app.repo

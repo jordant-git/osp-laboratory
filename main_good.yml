@@ -4,6 +4,7 @@
   gather_facts: true
   roles:
     - osp-facts
+<<<<<<< HEAD
 
 
 - name: Install and deploy haproxy
@@ -11,6 +12,15 @@
   user: cloud-user
 #  gather_facts: true
   become: yes
+=======
+  tags:
+    - db
+
+- name: Install and deploy haproxy
+  hosts: frontends
+  become: yes
+  gather_facts: false
+>>>>>>> 3232154ddb55a61327421f528fc8abb6aaac3492
   roles:
     - roles-enable-repos
     - roles-deploy-HAproxy
@@ -18,6 +28,7 @@
 - name: Install and deploy tomcat and apache
   hosts: apps
   gather_facts: false
+<<<<<<< HEAD
   become: true
   roles:
     - roles-enable-repos
@@ -50,3 +61,18 @@
   roles:
     - roles-enable-repos
     - geerlingguy.postgresql
+=======
+  become: yes
+  roles:
+    - roles-enable-repos
+    - roles-deploy-tomcat
+
+- name: install and initialize postgresql from Ansible galaxy geerlinguy
+  hosts: appdbs
+  become: yes
+  roles:
+    - roles-enable-repos
+    - geerlingguy.postgresql
+  tags:
+    - db
+>>>>>>> 3232154ddb55a61327421f528fc8abb6aaac3492
