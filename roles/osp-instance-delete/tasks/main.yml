@@ -1,0 +1,13 @@
+---
+# tasks file for roles/osp-instance-delete/
+- name: delete instance
+  os_server:
+#    cloud: opscloud
+    name: "{{ item  }}"
+    state: absent
+    key_name: ansible_ssh
+  loop: 
+    - app1
+    - app2
+    - db
+    - frontend
