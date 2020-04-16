@@ -1,0 +1,26 @@
+---
+# tasks file for roles-deploy-HAproxy
+- name: package http
+  package:
+    name: httpie
+    state: latest
+        
+- name: Install {{ package }}
+  yum:
+    name: " {{ package }}"
+    state: latest
+
+- name: enable {{ package }} on boot
+  service:
+    name: "{{ package }}"
+    enabled: yes 
+        
+- name: configure {{ package }}
+  template: 
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+
+- name: restart {{ package }}
+  service:
+    name: "{{ package }}"
+    state: restarted

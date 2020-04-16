@@ -1,0 +1,19 @@
+---
+# tasks file for roles-deploy-postgres
+- name: install postgres sql server
+  yum:
+    name: postgresql-server
+    state: latest
+
+- name: enable postgres at boot
+  service:
+    name: postgresql.service
+    enabled: yes
+
+- name: configure postgres
+  shell: postgresql-setup initdb
+
+- name: Start postgres service
+  service:
+    name: postgresql.service
+    state: started

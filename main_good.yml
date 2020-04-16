@@ -1,0 +1,33 @@
+---
+- name:  start of play
+  hosts: localhost
+  gather_facts: true
+  roles:
+    - osp-facts
+  tags:
+    - db
+
+- name: Install and deploy haproxy
+  hosts: frontends
+  become: yes
+  gather_facts: false
+  roles:
+    - roles-enable-repos
+    - roles-deploy-HAproxy
+
+- name: Install and deploy tomcat and apache
+  hosts: apps
+  gather_facts: false
+  become: yes
+  roles:
+    - roles-enable-repos
+    - roles-deploy-tomcat
+
+- name: install and initialize postgresql from Ansible galaxy geerlinguy
+  hosts: appdbs
+  become: yes
+  roles:
+    - roles-enable-repos
+    - geerlingguy.postgresql
+  tags:
+    - db
