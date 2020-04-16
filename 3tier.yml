@@ -1,0 +1,17 @@
+---
+- name:  start of play
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  roles:
+    - osp-facts
+
+
+- name: Install and deploy haproxy
+  hosts: frontends
+#  gather_facts: true
+  become: yes
+  roles:
+    - roles-enable-repos
+    - roles-deploy-HAproxy
+

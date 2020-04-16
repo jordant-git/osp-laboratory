@@ -1,0 +1,52 @@
+---
+- name:  start of play
+  hosts: localhost
+  gather_facts: true
+  roles:
+    - osp-facts
+
+
+- name: Install and deploy haproxy
+  hosts: frontends
+  user: cloud-user
+#  gather_facts: true
+  become: yes
+  roles:
+    - roles-enable-repos
+    - roles-deploy-HAproxy
+
+- name: Install and deploy tomcat and apache
+  hosts: apps
+  gather_facts: false
+  become: true
+  roles:
+    - roles-enable-repos
+    - roles-deploy-tomcat
+#    - roles-deploy-apache
+
+#- name: copy index.html.app1 to server app1
+#  hosts: app1
+#  become: true
+#  gather_facts: false
+#  tasks:
+#    - name: Copy index file
+#      template:
+#        src: index.html.app1
+#        dest: /usr/share/tomcat/webapps/ansible/index.html
+
+#- name: copy index.html.app1 to server app2
+#  hosts: app2
+#  become: true
+#  gather_facts: false
+#  tasks:
+#    - name: copy index file to app2
+#      template:
+ #       src: index.html.app2
+ #       dest: /usr/share/tomcat/webapps/ansible/index.html    
+#
+- name: install and initialize postgresql from Ansible galaxy geerlinguy
+  hosts: appdbs
+  become: true
+  roles:
+    - roles-enable-repos
+    - geerlingguy.postgresql

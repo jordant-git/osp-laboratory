@@ -1,0 +1,17 @@
+---
+# tasks file for roles-deploy-apache
+- name: deploy {{ package }}
+  yum:
+   name:  "{{ package }}"
+   state: latest
+
+- name: enable {{ package }} at boot
+  service:
+    name: "{{ package }}"
+    enabled: yes
+
+- name: start apache
+  service:
+    name: "{{ package }}"
+    state: started
+   
